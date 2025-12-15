@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>UPEI CSSA - Connect, Support, Grow Together</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --red: #d62828;
+      --dark: #222831;
+      --light-gray: #f5f5f5;
+      --border-radius: 12px;
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+      background: #ffffff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      border-bottom: 1px solid #eee;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;          /* ✅ 强制裁剪为圆形 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 专门控制 logo 图片 */
+    .logo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;       /* ✅ 不变形显示 */
+      display: block;
+    }
+
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .hero {
+      background: linear-gradient(
+          to right,
+          rgba(214, 40, 40, 0.08),
+          rgba(214, 40, 40, 0)
+        ),
+        #ffffff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 40px 16px 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .hero-tags {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      border-radius: 999px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      background: #fff;
+      padding: 8px 18px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background: rgba(214, 40, 40, 0.06);
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--border-radius);
+      padding: 18px 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+
+    .hero-card-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-item {
+      margin-top: 6px;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: #777;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      border: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(214, 40, 40, 0.06);
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-meta {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .contact-card {
+      background: var(--light-gray);
+      border-radius: var(--border-radius);
+      padding: 14px 16px;
+      font-size: 14px;
+    }
+
+    footer {
+      border-top: 1px solid #eee;
+      padding: 16px;
+      font-size: 12px;
+      text-align: center;
+      color: #777;
+      background: #fafafa;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding-top: 24px;
+      }
+
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none; /* 简化移动端导航 */
+      }
+
+      .hero-title {
+        font-size: 22px;
+      }
+    }
+    .link-blue {
+      color: #1a73e8;          /* 链接蓝 */
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .link-blue:hover {
+      color: #0c47a1;
+    }
+    .member-photo {
+      width: 160px;
+      height:160px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+      margin: 0 auto 12px; /* 自动居中 + 底部留空 */
+    }
+    .event-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 12px 0;
+    }
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <div class="logo-circle">
+        <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/cssa.jpg" alt="CSSA Logo">
+      </div>
+
+        <div>UPEI Chinese Students & Scholars Association</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#events">Events</a>
+        <a href="#team">Team</a>
+        <a href="#join">Join</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-title">Connect, Support, Grow Together</div>
+        <div class="hero-subtitle">
+          爱德华王子岛大学中国学生学者联谊会（UPEI CSSA）
+        </div>
+        <div class="hero-tags">
+          Orientation | Festival | Career | Community
+        </div>
+        <div class="hero-buttons">
+          <button class="btn-primary">查看近期活动</button>
+          <button class="btn-outline">加入 / 联系我们</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-title">近期活动预告</div>
+        <div class="hero-card-item">
+          <strong>Spring Festival Celebration</strong><br />
+          时间：<br />
+          地点：<br />
+          简介：
+        </div>
+        <div class="hero-card-item">
+          <strong>Dumpling Event</strong><br />
+          时间：<br />
+          地点：<br />
+          简介：
+        </div>
+        <div class="hero-card-item">
+          <strong>Financial Literacyt</strong><br />
+          时间：<br />
+          地点：<br />
+          简介：
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="section-header">
+        <div class="section-title">About CSSA / 协会介绍</div>
+        <div class="section-subtitle">
+          University of Prince Edward Island Chinese Students & Scholars Association
+        </div>
+      </div>
+      <div class="two-column">
+        <div>
+          <p style="margin-bottom: 8px;">
+            The University of Prince Edward Island Chinese Students and Scholars Association 
+            (UPEI CSSA) is a student organization certified by the Education Section of the 
+            Embassy of the People's Republic of China in Canada, and an official association 
+            under the UPEI Student Union. As a non-profit, student-run organization, UPEI CSSA 
+            is dedicated to serving Chinese students and scholars studying and working in the 
+            Prince Edward Island region. The association strives to strengthen the cohesion of 
+            the Chinese community on campus and to promote cultural exchange between China and 
+            Canada.
+          </p>
+          <p style="margin-bottom: 8px;">
+            爱德华王子岛大学中国学生学者联合会（UPEI CSSA）是由中国驻加拿大大使馆教育处认证的学生组织，
+            也是爱德华王子岛大学学生会（UPEI Student Union）下属的正式协会之一。作为非营利性、学生自发
+            组织的华人社团，UPEI CSSA旨在服务在爱德华王子岛地区学习和工作的中国学生与学者，致力于增强校
+            园华人群体的凝聚力，促进中加文化交流。
+          </p>
+        </div>
+        <div>
+          <div class="contact-card">
+            <strong>Our Focus / 我们关注：</strong>
+            <ul style="margin-top: 6px; padding-left: 18px; font-size: 13px;">
+              <li>Orientation 迎新与校园信息指引</li>
+              <li>Festival 传统节日与文化活动</li>
+              <li>Career 求职分享与职业发展</li>
+              <li>Community 校园与本地社区联结</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events -->
+    <section class="section" id="events">
+      <div class="section-header">
+        <div class="section-title">Past Events / 活动回顾</div>
+        <div class="section-subtitle">Meet, celebrate and grow with CSSA</div>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-tag">Festival</div>
+          <div class="card-title">Global Village</div>
+          <div class="card-meta">2025-11-29 · UPEI Student Centre</div>
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/2025_Global_Village.jpg" 
+            alt="UPEI Global Village – CSSA Booth" 
+            class="event-image">
+          <div class="card-desc">
+            当中国文化遇见 UPEI Global Village<br />
+
+            在 11 月的岛屿寒风中，UPEI Global Village 用热闹与温度连接了来自世界各地的文化。<br />
+            今年，UPEI CSSA 也在校园里呈现了一个温柔而自信的“中国空间”。<br />
+
+            从熊猫纹身贴、汉服展示到红包与互动小物，中国展位迅速吸引了不同国家的学生驻足交流。一个小小的熊猫贴纸，拉近了距离，也让中国文化成为能被带走的温暖记忆。<br />
+
+            在 Fashion Runway 环节中，中国传统服饰与多国文化同台亮相，展现了文化并肩、彼此尊重的力量。<br />
+            舞台上，中文歌曲与扬琴演奏让许多国际同学第一次近距离感受到中国音乐的情感与魅力。<br />
+
+            感谢所有参与展位、表演与幕后支持的同学，也感谢 Global Village 官方赞助伙伴 TD Bank 对多元文化的支持。
+            文化因分享而鲜活，也因为我们在一起，而被看见。<br />
+
+            期待下一次相遇，让世界继续在 UPEI 相互交流、彼此理解。<br />
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-tag">Cooperation</div>
+          <div class="card-title">Leadership,Wealth&Career Pathways in Banking</div>
+          <div class="card-meta">2025-11-15 · UPEI Student Centre</div>
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/2025_TD.jpg" 
+            alt="UPEI Global Village – CSSA Booth" 
+            class="event-image">
+          <div class="card-desc">
+            Leadership, Wealth & Career Pathways in Banking<br />
+
+            11 月 15 日，由 TD Bank 联合 UPEI CSSA 主办，并得到 UPEI Accounting Association、Study & Stay PEI、UPEI Alumni 支持的 Leadership, Wealth & Career Pathways in Banking 活动在 UPEI Murphy Student Centre · McMillan Hall 顺利举行。<br />
+
+            本次活动最大的亮点是 十余位来自 TD 的 UPEI 校友重返校园，与在校同学面对面分享他们从 UPEI 走向银行业的成长经历，既是一场温暖的返校交流，也为学生提供了深入了解银行行业与职业路径的宝贵机会。<br />
+
+            活动通过 个人银行、财富管理 / 小企业 / 房贷领域以及分行管理 三个板块，系统展示了不同岗位的工作内容、能力要求与发展方向。校友们结合自身经验，分享了从校园到职场的转变、领导力的培养以及长期职业规划的思考。<br />
+
+            在 Q&A 与 Networking 环节中，同学们与校友及 TD 团队积极交流，获得了实用的求职与发展建议，并建立了初步的人脉联系。轻松的交流氛围与现场茶点，也让整个下午充满温度与收获。<br />
+
+            衷心感谢所有嘉宾、校友、合作伙伴、志愿者及到场同学的共同参与，让本次活动圆满而有意义。
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-tag">Festival</div>
+          <div class="card-title">Full Moon, Shared Warmth at UPEI</div>
+          <div class="card-meta">2025-10-6 · Murphy Student Centre, UPEI</div>
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/2025_Moon.jpg" 
+            alt="UPEI Global Village – CSSA Booth" 
+            class="event-image">
+          <div class="card-desc">
+            月满人团圆 · 情浓在 UPEI<br />
+
+            UPEI CSSA 中秋活动回顾<br />
+
+            为让海外学子感受中秋的温暖与团圆，UPEI CSSA 于中秋期间举办了系列主题活动，包括月饼礼盒发放、手工月饼制作、团队聚餐及校园月饼派发，与同学们一同庆祝传统佳节。<br />
+
+            通过手作体验与校园分享，甜蜜的月饼不仅传递了节日祝福，也搭建了文化交流与社区联结的桥梁。活动中，CSSA 成员与志愿者共同参与，让这份温暖走向更多 UPEI 学生。<br />
+
+            感谢中国驻加拿大大使馆、Manna Fast Food、CSPEI 以及 TD Bank 等合作伙伴的支持，也感谢每一位参与其中的同学与志愿者。<br />
+
+            愿明月常照，温暖常在。<br />
+            UPEI CSSA 祝大家中秋快乐。
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Team & Join -->
+    <section class="section" id="team">
+      <div class="section-header">
+        <div class="section-title">Our Team / 干部团队</div>
+        <div class="section-subtitle">Student leaders serving the community</div>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Alex_Shan/Alex_Shan2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Alex Shan</div>
+          <div class="card-meta">President</div>
+          <div class="card-desc">
+      
+            我就读于 McDougall 商学院会计专业，MBTI 类型为 INTJ，热衷于金融与理财领域探索，拥有多行业工作经历，视野开阔、思维缜密；作为 CSSA 主席，我注重组织效率与团队协作，致力于打造一个结构清晰、氛围温暖、资源丰富、真诚互助的华人学生社区。
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Yunyi_Liu/Yunyi_Liu2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Yunyi Liu</div>
+          <div class="card-meta">Vice-Preisdent</div>
+          <div class="card-desc">
+            Hi, Yunyi here. I’m currently studying in the MBA program at UPEI, and I’ve been part of CSSA for a year. I enjoy going on road trips and hiking when the weather is nice. My life motto is to enjoy every single day!
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Yuan_Cui/Yuan_Cui2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Yuan Cui</div>
+          <div class="card-meta">Marketing & Publicity Coordinator</div>
+          <div class="card-desc">
+            I'm Yuan. I'm studying in the sustainability engineering design first year program at upei.
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Shuyi_Yang/Shuyi_Yang2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Shuyi Yang</div>
+          <div class="card-meta">Marketing & Publicity Coordinator</div>
+          <div class="card-desc">
+            我是杨舒怡，UPEI BBA专业学生，现任 CSSA Marketing & Publicity Coordinator，主要负责公众号内容撰写、排版与视觉呈现。我热爱文字表达与内容创作，希望通过清晰、有温度的宣传让更多同学了解 CSSA 的活动与服务，感受到社区的支持与活力，并持续为大家带来更贴近学生生活的优质内容。
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Jiaqian_Wang/Jiaqian_Wang2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Claire Wang</div>
+          <div class="card-meta">Marketing & Publicity Coordinator</div>
+          <div class="card-desc">
+            I am a first-year student in the Sustainability Design Engineering program at UPEI. Currently, I serve as the Publicity Officer for the Chinese Students and Scholars Association (CSSA).
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Yuying/YuYing2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Yuying</div>
+          <div class="card-meta">Vice-Preisdent</div>
+          <div class="card-desc">
+            My name is Yuying, and I’m the Treasurer of UPEI CSSA. I am currently a first-year Accounting student at UPEI. I’m excited to be part of the team and support our Chinese student community!
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Jiaqi_Chen/Jiaqi_Chen2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">jiaqi Chen</div>
+          <div class="card-meta">Event Coordinator</div>
+          <div class="card-desc">
+            搞二次元的一般活动部成员
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Len/Len2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Len</div>
+          <div class="card-meta">Technical support</div>
+          <div class="card-desc">
+            我是李熙，之前就读计算机后转专业到Business。预期2026年暑期课结束后毕业。主要在CSSA提供一些简单的技术支持，希望我们的组织可以帮助到更多的中国留学生可以越来越好。
+          </div>
+        </div><div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Pascal/Pascal2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Yingjie Zhao</div>
+          <div class="card-meta">Photographer</div>
+          <div class="card-desc">
+            我是赵应杰（Pascal），在读BBA，喜欢旅行，弹吉他和摄影等等……
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Xinglin_Wang/Xinglin_Wang2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Xingline Wang</div>
+          <div class="card-meta">Event Coordinator</div>
+          <div class="card-desc">
+            在策划与混乱之间寻找平衡的人类观察者，偶尔清醒，经常发疯。
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/Yang_Li/Yang_Li2.png" alt="Alex Shan" class="member-photo" />
+          <div class="card-title">Yang Li</div>
+          <div class="card-meta">Event Coordinator</div>
+          <div class="card-desc">
+            我是黎阳，CSSA 活动部的老成员。专业方向是计算机科学，我期望带给大家创新且可行的想法，并赋予实际行动，稳定推进事务。未来，我希望能够继续在活动策划与组织中承担更多责任。同时也期待将专业所长与活动工作结合，尝试更多创新做法.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="join">
+      <div class="section-header">
+        <div class="section-title">Join CSSA / 加入我们</div>
+        <div class="section-subtitle">Be part of the community</div>
+      </div>
+      <div class="two-column">
+        <div class="card">
+          <div class="card-title">成为会员 / Become a member</div>
+          <div class="card-desc">
+            扫描我们的微信群二维码或关注公众号即可获取最新活动信息。
+            你也可以通过邮件联系我们加入邮件列表。
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">成为志愿者 / Volunteer</div>
+          <div class="card-desc">
+            活动当天需要布置场地、签到、摄影、主持等志愿者。
+            我们会定期开招募说明，欢迎填写报名表或邮件咨询。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="section-header">
+        <div class="section-title">Contact / 联系方式</div>
+        <div class="section-subtitle">
+          欢迎新生、在校生和合作伙伴与我们联络
+        </div>
+      </div>
+      <div class="two-column">
+        <div class="contact-card">
+          <p>
+            <strong>Email：</strong>upeicssa@upeisu.ca<br />
+            <strong>WeChat：</strong>cssahaven<br />
+            <strong>Instagram：</strong>upeichinesestudentsscholars<br />
+            <strong>微信公众号：</strong>UPEI留学圈<br />
+          </p>
+          <p style="margin-top: 8px;">
+            如需合作活动、宣传或赞助，也欢迎通过邮件联系 CSSA 主席或执行团队。
+          </p>
+        </div>
+        
+        <div style="font-size: 13px; color: #666;">
+          
+
+        <br />
+          - 协会的章程 链接：<a href="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/%E5%8D%8F%E4%BC%9A%E7%AB%A0%E7%A8%8B.pdf" target="_blank" class="link-blue">
+            点击进入
+          </a><br />
+          - Instagram 链接：<a href="https://www.instagram.com/upeichinesestudentsscholars?igsh=MWoybHlkcTNyZ2N1dg==" target="_blank" class="link-blue">
+            点击进入
+          </a><br />
+          - 微信公众号二维码<br />
+          <img 
+            src="https://pub-99fe382bf0c44a1cae1871c34821eddb.r2.dev/CSSA/CSSA_gzh.jpg"
+            alt="CSSA 微信公众号二维码"
+            style="width:200px; height:auto;"
+          ><br />
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 UPEI Chinese Students & Scholars Association · UPEI CSSA
+  </footer>
+</body>
+</html>
